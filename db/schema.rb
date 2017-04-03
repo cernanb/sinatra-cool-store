@@ -26,10 +26,11 @@ ActiveRecord::Schema.define(version: 20170329185501) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "status",     default: "Non-Premium"
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "email"
+    t.integer "total_spent", default: 0
+    t.string  "status",      default: "Non-Premium"
   end
 
 end
