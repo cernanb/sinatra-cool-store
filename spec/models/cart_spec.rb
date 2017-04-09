@@ -41,4 +41,35 @@ describe Cart do
     end
   end
 
+  describe 'checkout' do
+    before(:each) do
+      @cart = Cart.create(status: 'pending')
+      @item = @cart.items.create(name: 'iPhone', inventory: 20, price: 200)
+      @item2 = @cart.items.create(name: 'xbox', inventory: 10, price: 250)
+      @user = @cart.create_user(
+        first_name: 'Cernan',
+        last_name: 'Bernardo',
+        email: 'cernan@flatironschool.com')
+    end
+
+    it 'assigns the total of the cart to an attribute for the user called :total_spent' do
+      @cart.checkout
+
+      expect(@user.total_spent).to eq(450)
+    end
+
+    it 'reduces the inventory of each item by 1' do
+      @cart.checkout
+
+      expect(@item.inventory).to eq(19)
+      expect(@item2.inventory).to eq(9)
+    end
+
+    it 'changes the status of the cart from pending to submitted' do
+      @cart.checkout
+
+      expect(@cart.status).to eq('Submitted')
+    end
+  end
+
 end
