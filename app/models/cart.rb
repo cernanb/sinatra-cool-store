@@ -8,7 +8,7 @@ class Cart < ActiveRecord::Base
   end
 
   def checkout
-    user.total_spent = total
+    user.update_total_spent(total)
     items.each { |item| item.inventory -= 1 }
     self.status = 'Submitted'
   end
